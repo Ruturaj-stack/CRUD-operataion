@@ -6,31 +6,39 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
   <title>LOCKATED User Management System</title>
+
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
 <div class="container-wrapper">
   <div class="header-section">
     <div>
       <h1 class="header-title">
-        <i class="bi bi-people-fill"></i>  User Management
+        <i class="bi bi-people-fill"></i> User Management
       </h1>
       <p class="header-subtitle">Manage your team members efficiently</p>
     </div>
     <div class="header-actions">
-      <!-- Load Demo button removed as requested -->
+      <div class="view-toggle">
+        <button id="tableViewBtn" class="active">
+          <i class="bi bi-table"></i> Table View
+        </button>
+        <button id="kanbanViewBtn">
+          <i class="bi bi-kanban"></i> Kanban View
+        </button>
+      </div>
       <button id="addUserBtn" class="btn btn-primary">
         Add New User <i class="bi bi-plus-circle"></i>
       </button>
     </div>
   </div>
 
-  <!-- Table / Empty state container -->
   <div id="tableContainer"></div>
+  <div id="kanbanContainer" class="kanban-board"></div>
 </div>
 
-<!-- Modal -->
 <div class="modal fade" id="userForm">
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
@@ -41,54 +49,53 @@
 
       <div class="modal-body">
         <form id="myForm" class="row">
-          <!-- Left -->
           <div class="col-md-5 text-center">
             <label for="imgInput" class="upload btn d-block mb-3">
               <i class="bi bi-cloud-upload"></i> Choose Profile Picture
             </label>
-            <input type="file" id="imgInput" accept="image/*">
+            <input type="file" id="imgInput" accept="image/*" style="display: none;">
             <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Crect width='250' height='250' fill='%23e9ecef'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='60' fill='%23667eea'%3EUser%3C/text%3E%3C/svg%3E" 
                  id="imgPreview" width="250" height="250" class="rounded-circle">
           </div>
 
-          <!-- Right -->
           <div class="col-md-7">
             <div class="mb-3">
               <label><i class="bi bi-person"></i> Full Name:</label>
               <input type="text" id="name" class="form-control" placeholder="Enter full name">
             </div>
-
             <div class="mb-3">
               <label><i class="bi bi-calendar"></i> Age:</label>
               <input type="number" id="age" class="form-control" placeholder="Enter age">
             </div>
-
             <div class="mb-3">
               <label><i class="bi bi-geo-alt"></i> City:</label>
               <input type="text" id="city" class="form-control" placeholder="Enter city">
             </div>
-
             <div class="mb-3">
               <label><i class="bi bi-envelope"></i> Email:</label>
               <input type="email" id="email" class="form-control" placeholder="Enter email address">
             </div>
-
             <div class="mb-3">
               <label><i class="bi bi-telephone"></i> Phone:</label>
               <input type="tel" id="phone" class="form-control" placeholder="Enter 10-digit phone number" maxlength="10">
               <small class="text-muted">Enter 10 digit phone number</small>
             </div>
-
             <div class="mb-3">
               <label><i class="bi bi-briefcase"></i> Position:</label>
               <input type="text" id="post" class="form-control" placeholder="Enter job position">
             </div>
-
             <div class="mb-3">
               <label><i class="bi bi-calendar-check"></i> Start Date:</label>
               <input type="date" id="sDate" class="form-control">
             </div>
-
+            <div class="mb-3">
+              <label><i class="bi bi-list-check"></i> Status:</label>
+              <select id="status" class="form-control">
+                <option value="todo">To Do</option>
+                <option value="in-progress">In Progress</option>
+                <option value="done">Done</option>
+              </select>
+            </div>
             <button type="button" class="btn btn-primary" id="submitBtn" onclick="submitForm()">
               <i class="bi bi-save"></i> Save User
             </button>
@@ -100,7 +107,6 @@
   </div>
 </div>
 
-<!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="script.js"></script>
 </body>
